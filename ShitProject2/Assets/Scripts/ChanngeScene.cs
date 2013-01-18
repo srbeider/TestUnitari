@@ -11,5 +11,9 @@ public class ChanngeScene : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+		if(Time.time > 5)	
+		{
+			Application.LoadLevel(1);
+		}
 	}
 }
