@@ -24,6 +24,7 @@ public class fader : MonoBehaviour {
 	
 	void Start ()
 	{
+		this.collider.enabled = false;
 		var c = renderer.material.color;
 		renderer.material.color = new Color(c.r, c.g, c.b, newAlpha);
 	}

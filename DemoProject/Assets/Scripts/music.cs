@@ -13,7 +13,7 @@ public class music : MonoBehaviour {
 	}
 
     private static music instance = null;
-    public static music Instance {
+    public static music MusicInstance {
         get { return instance; }
     }
     void Awake() {
