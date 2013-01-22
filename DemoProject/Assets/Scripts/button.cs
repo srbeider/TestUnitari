@@ -4,9 +4,9 @@ using System.Collections;
 public class button : MonoBehaviour {
 	
 	public string Action = null;
-	private Color pressed = new Color(160, 160, 160);
-	private Color entered = new Color(160, 0, 0);
-	private Color exited = new Color(50, 0, 0);
+	private Color pressed = new Color(0.75F, 0.75F, 0.75F);
+	private Color entered = new Color(0.75F, 0F, 0F);
+	private Color exited = new Color(0.25F, 0F, 0F);
 	
 	// Use this for initialization
 	void Start () {
@@ -22,24 +22,25 @@ public class button : MonoBehaviour {
 	void OnMouseDown(){
 		
 		renderer.material.color = pressed;
-		print("PRESSED!");
 		switch(Action){
 		case "exitGame":
 			print ("EXITING");
 			Application.Quit();
 			break;
+		case "miniGame":
+			print("MINIGAME");
+			break;
+		case "scene":
+			print("SCENE");
+			break;
 		}
 	}
 	
-	
-	
 	void OnMouseEnter(){
-		print("ENTERED!");
 		renderer.material.color = entered;
 	}
 	
 	void OnMouseExit(){
-		print("EXITED!");
 		renderer.material.color = exited;
 	}
 }
