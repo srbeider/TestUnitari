@@ -24,7 +24,8 @@ public class fader : MonoBehaviour {
 	
 	void Start ()
 	{
-		this.collider.enabled = false;
+		renderer.enabled = true;
+		collider.enabled = false;
 		var c = renderer.material.color;
 		renderer.material.color = new Color(c.r, c.g, c.b, newAlpha);
 	}
@@ -54,7 +55,13 @@ public class fader : MonoBehaviour {
 		else if(actualState == FaderState.finished)
 		{
 			//Acabat
-			Application.LoadLevel(nextScene);
+			if(nextScene != null){
+				Application.LoadLevel(nextScene);
+			}
+			else
+			{
+				Application.Quit();
+			}
 		}
 	}
 	
