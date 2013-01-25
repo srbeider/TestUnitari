@@ -48,6 +48,8 @@
      <Compile Include="Assets\Scripts\SpriteAnimation.cs" />
      <Compile Include="Assets\Scripts\button.cs" />
      <Compile Include="Assets\Scripts\fader.cs" />
+     <Compile Include="Assets\Scripts\miniGame\light.cs" />
+     <Compile Include="Assets\Scripts\miniGame\redLight.cs" />
      <Compile Include="Assets\Scripts\music.cs" />
      <Compile Include="Assets\Scripts\starship.cs" />
      <Compile Include="Assets\Scripts\titleAnim.cs" />
