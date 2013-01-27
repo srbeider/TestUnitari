@@ -14,14 +14,14 @@ public class Player : MonoBehaviour {
 	void Update () {
 		var hDelta = Input.GetAxis("Horizontal");
 		if (hDelta != 0) {
-			var scale = renderer.material.GetTextureScale("_MainTex");
+			var scale = transform.localScale;
 			if (hDelta < 0 && scale.x > 0) 
 			{
-				renderer.material.SetTextureScale("_MainTex", new Vector2(scale.x * -1, 0));
+				transform.localScale = new Vector3(scale.x * -1,scale.y,scale.z);
 			}
 			else if (hDelta > 0 && scale.x < 0) 
 			{
-				renderer.material.SetTextureScale("_MainTex", new Vector2(scale.x * -1, 0));
+				transform.localScale = new Vector3(scale.x * -1,scale.y,scale.z);
 			}
 			transform.Translate(new Vector3(-Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, 0));
 		}
