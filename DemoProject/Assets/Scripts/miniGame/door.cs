@@ -3,58 +3,41 @@ using System.Collections;
 
 public class door : MonoBehaviour {
 	
-	public float velocity = 20F;
+	public float velocity = 5F;
 	public float ClosedAngle = 0F;
 	public float OpenAngle = 90F;
-	private float angle = 0F;
 	public state ActualState = state.Closed;
 	public enum state
 	{
 		Closed,
-		Opening,
-		Open,
-		Closing
+		Open
 	}
 	
 	// Use this for initialization
 	void Start () {
 		if(ActualState == state.Open)
 		{
-			angle = OpenAngle;
+			SwitchLightOn();
 		}
 		else
 		{
-			angle = ClosedAngle;
+			SwitchLightOff();
 		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		//Closed
 		if(ActualState == state.Closed)
 		{
+			var target = Quaternion.Euler(0, ClosedAngle, 0);
+			transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * velocity);
 		}
-		else if(ActualState == state.Opening && angle < OpenAngle)
-		{
-			angle += velocity * Time.deltaTime;
-			transform.Rotate(0, angle, 0);
-		}
-		else if(ActualState == state.Opening && angle >= OpenAngle)
-		{
-			angle = OpenAngle;
-			ActualState = state.Open;
-		}
+		//Open
 		else if(ActualState == state.Open)
 		{
-		}
-		else if(ActualState == state.Closing && angle > ClosedAngle)
-		{
-			angle -= velocity * Time.deltaTime;
-			transform.Rotate(0, angle, 0);
-		}
-		else if(ActualState == state.Closing && angle <= ClosedAngle)
-		{
-			angle = ClosedAngle;
-			ActualState = state.Closed;
+			var target = Quaternion.Euler(0, OpenAngle, 0);
+			transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * velocity);
 		}
 	}
 	
@@ -62,13 +45,26 @@ public class door : MonoBehaviour {
 	{
 		if(ActualState == state.Open)
 		{
-			ActualState = state.Closing;
+			ActualState = state.Closed;
+			SwitchLightOff();
 		}
 		else if(ActualState == state.Closed)
 		{
-			ActualState = state.Opening;
+			ActualState = state.Open;
+			SwitchLightOn();
 		}
-		
-		print (ActualState.ToString());
 	}
+	
+	private void SwitchLightOn()
+	{
+		var lights = GameObject.FindGameObjectsWithTag("light");
+		foreach(var light in lights) light.GetComponent<light>().SwitchOn();
+	}
+	
+	private void SwitchLightOff()
+	{
+		var lights = GameObject.FindGameObjectsWithTag("light");
+		foreach(var light in lights) light.GetComponent<light>().SwitchOff();
+	}
+	
 }
