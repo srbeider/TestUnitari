@@ -5,11 +5,11 @@
 	<Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
 	<ProductVersion>10.0.20506</ProductVersion>
 	<SchemaVersion>2.0</SchemaVersion>
-	<ProjectGuid>{DBE53C73-5E64-55EF-9E88-6C47A9A49BF7}</ProjectGuid>
+	<ProjectGuid>{64D4C283-4F6E-CE9E-4D7C-CADF11E9F7E8}</ProjectGuid>
 	<OutputType>Library</OutputType>
 	<AppDesignerFolder>Properties</AppDesignerFolder>
 	<RootNamespace></RootNamespace>
-	<AssemblyName>Assembly-CSharp</AssemblyName>
+	<AssemblyName>Assembly-UnityScript-firstpass</AssemblyName>
 	<TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
 	<FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -44,20 +44,11 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\DoorBehaviour.cs" />
-     <Compile Include="Assets\Scripts\Player.cs" />
-     <Compile Include="Assets\Scripts\SpriteAnimation.cs" />
-     <Compile Include="Assets\Scripts\button.cs" />
-     <Compile Include="Assets\Scripts\fader.cs" />
-     <Compile Include="Assets\Scripts\miniGame\control.cs" />
-     <Compile Include="Assets\Scripts\miniGame\door.cs" />
-     <Compile Include="Assets\Scripts\miniGame\light.cs" />
-     <Compile Include="Assets\Scripts\miniGame\redLight.cs" />
-     <Compile Include="Assets\Scripts\miniGame\sceneController.cs" />
-     <Compile Include="Assets\Scripts\miniGame\sparks.cs" />
-     <Compile Include="Assets\Scripts\music.cs" />
-     <Compile Include="Assets\Scripts\starship.cs" />
-     <Compile Include="Assets\Scripts\titleAnim.cs" />
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\CharacterMotor.js" />
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\FPSInputController.js" />
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\PlatformInputController.js" />
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonCamera.js" />
+     <Compile Include="Assets\Standard Assets\Character Controllers\Sources\Scripts\ThirdPersonController.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

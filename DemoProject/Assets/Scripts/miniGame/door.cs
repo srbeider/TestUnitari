@@ -13,15 +13,18 @@ public class door : MonoBehaviour {
 		Open
 	}
 	
+	private sceneController controller;
+	
 	// Use this for initialization
 	void Start () {
+		controller = GameObject.Find("ScriptsController").GetComponent<sceneController>();
 		if(ActualState == state.Open)
 		{
-			SwitchLightOn();
+			OpenDoor();
 		}
 		else
 		{
-			SwitchLightOff();
+			CloseDoor();
 		}
 	}
 	
@@ -45,26 +48,24 @@ public class door : MonoBehaviour {
 	{
 		if(ActualState == state.Open)
 		{
-			ActualState = state.Closed;
-			SwitchLightOff();
+			CloseDoor();
 		}
 		else if(ActualState == state.Closed)
 		{
-			ActualState = state.Open;
-			SwitchLightOn();
+			OpenDoor();
 		}
 	}
 	
-	private void SwitchLightOn()
+	private void OpenDoor()
 	{
-		var lights = GameObject.FindGameObjectsWithTag("light");
-		foreach(var light in lights) light.GetComponent<light>().SwitchOn();
+		ActualState = state.Open;
+		controller.setDoorOpen(true);
 	}
 	
-	private void SwitchLightOff()
+	private void CloseDoor()
 	{
-		var lights = GameObject.FindGameObjectsWithTag("light");
-		foreach(var light in lights) light.GetComponent<light>().SwitchOff();
+		ActualState = state.Closed;
+		controller.setDoorOpen(false);
 	}
 	
 }
