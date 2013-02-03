@@ -54,6 +54,7 @@
      <Compile Include="Assets\Scripts\miniGame\light.cs" />
      <Compile Include="Assets\Scripts\miniGame\redLight.cs" />
      <Compile Include="Assets\Scripts\miniGame\sceneController.cs" />
+     <Compile Include="Assets\Scripts\miniGame\soundControl.cs" />
      <Compile Include="Assets\Scripts\miniGame\sparks.cs" />
      <Compile Include="Assets\Scripts\music.cs" />
      <Compile Include="Assets\Scripts\starship.cs" />

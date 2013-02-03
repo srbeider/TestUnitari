@@ -2,14 +2,43 @@ using UnityEngine;
 using System.Collections;
 
 public class music : MonoBehaviour {
-
+	
+	public enum FadingState
+	{
+		FadingOut,
+		Muted,
+		FadingIn,
+		Unmuted
+	}
+	
+	float fadingVelocity;
+	FadingState actualState;
+	
 	// Use this for initialization
 	void Start () {
+		actualState = FadingState.Unmuted;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(actualState == FadingState.FadingOut && audio.volume > 0)
+		{
+			audio.volume -= fadingVelocity * Time.deltaTime;
+		}
+		else if(actualState == FadingState.FadingOut && audio.volume <= 0)
+		{
+			actualState = FadingState.Muted;
+			audio.volume = 0;
+		}
+		else if(actualState == FadingState.FadingIn && audio.volume < 1)
+		{
+			audio.volume += fadingVelocity * Time.deltaTime;
+		}
+		else if(actualState == FadingState.FadingIn && audio.volume >= 1)
+		{
+			actualState = FadingState.Unmuted;
+			audio.volume = 1;
+		}
 	}
 
     private static music instance = null;
@@ -26,5 +55,15 @@ public class music : MonoBehaviour {
         DontDestroyOnLoad(this.gameObject);
     }
 
-    // any other methods you need
+    public void FadeOutMusic(float duration)
+	{
+		fadingVelocity = audio.volume / duration;
+		actualState = FadingState.FadingOut;
+	}
+
+    public void FadeInMusic(float duration)
+	{
+		fadingVelocity = audio.volume / duration;
+		actualState = FadingState.FadingIn;
+	}
 }

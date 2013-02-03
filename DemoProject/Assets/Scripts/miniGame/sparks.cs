@@ -25,6 +25,8 @@ public class sparks : MonoBehaviour {
 	{
 		timer = 0F;
 		particleSystem.Stop();
+		audio.Stop();
+		audio.Play();
 		particleSystem.Play();
 		particleSystem.light.intensity = 2;
 	}

@@ -16,7 +16,9 @@ public class control : MonoBehaviour {
 
 	float rotationY = 0F;
 	float rotationX = 0F;
-
+	
+	RaycastHit hit;
+	
 	void Update ()
 	{
 		if (axes == RotationAxes.XAndY)
@@ -40,6 +42,12 @@ public class control : MonoBehaviour {
 			
 			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
 		}
+		
+		Ray ray = new Ray(this.transform.position, this.transform.forward);
+		if(Physics.Raycast(ray, out hit, 10))
+		{
+			CollisionDetected(hit.collider.gameObject);
+		}
 	}
 	
 	void Start ()
@@ -47,5 +55,10 @@ public class control : MonoBehaviour {
 		// Make the rigid body not change rotation
 		if (rigidbody)
 			rigidbody.freezeRotation = true;
+	}
+	
+	void CollisionDetected(GameObject gobject)
+	{
+		print (gobject.name);
 	}
 }

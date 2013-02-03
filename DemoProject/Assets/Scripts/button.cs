@@ -34,6 +34,7 @@ public class button : MonoBehaviour {
 			break;
 		}
 		faderScript.StartFadeOut();
+		GameObject.Find("Music").GetComponent<music>().FadeOutMusic(3F);
 	}
 	
 	void OnMouseEnter(){
