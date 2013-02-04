@@ -59,6 +59,8 @@ public class control : MonoBehaviour {
 	
 	void CollisionDetected(GameObject gobject)
 	{
-		print (gobject.name);
+		if(gobject.tag.Equals("sparks")){
+			print (gobject.name);
+		}
 	}
 }
