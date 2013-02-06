@@ -67,5 +67,4 @@ public class door : MonoBehaviour {
 		ActualState = state.Closed;
 		controller.setDoorOpen(false);
 	}
-	
 }

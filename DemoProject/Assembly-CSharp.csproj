@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\fader.cs" />
      <Compile Include="Assets\Scripts\miniGame\control.cs" />
      <Compile Include="Assets\Scripts\miniGame\door.cs" />
+     <Compile Include="Assets\Scripts\miniGame\guiControl.cs" />
      <Compile Include="Assets\Scripts\miniGame\light.cs" />
      <Compile Include="Assets\Scripts\miniGame\redLight.cs" />
      <Compile Include="Assets\Scripts\miniGame\sceneController.cs" />

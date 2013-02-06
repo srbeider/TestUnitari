@@ -19,6 +19,8 @@ public class control : MonoBehaviour {
 	
 	RaycastHit hit;
 	
+	guiControl gui;
+	
 	void Update ()
 	{
 		if (axes == RotationAxes.XAndY)
@@ -44,23 +46,25 @@ public class control : MonoBehaviour {
 		}
 		
 		Ray ray = new Ray(this.transform.position, this.transform.forward);
-		if(Physics.Raycast(ray, out hit, 10))
-		{
-			CollisionDetected(hit.collider.gameObject);
-		}
+		bool collisionResult = Physics.Raycast(ray, out hit, 10) && hit.collider.gameObject.layer == 8;
+		ProcessCollision(collisionResult);
 	}
 	
 	void Start ()
 	{
 		// Make the rigid body not change rotation
-		if (rigidbody)
-			rigidbody.freezeRotation = true;
+		if (rigidbody) rigidbody.freezeRotation = true;
+		gui = GameObject.Find("gui").GetComponent<guiControl>();
 	}
 	
-	void CollisionDetected(GameObject gobject)
+	void ProcessCollision(bool isColliding)
 	{
-		if(gobject.tag.Equals("sparks")){
-			print (gobject.name);
+		if(isColliding){
+			gui.ShowGUI(hit.point);
+		}
+		else
+		{
+			gui.HideGUI();
 		}
 	}
 }
