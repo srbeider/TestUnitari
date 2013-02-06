@@ -4,62 +4,93 @@ using System.Collections;
 public class DoorBehaviour : MonoBehaviour {
 	
 	private class Door{
-		public Door(Transform door, Vector3 maxValue, float speed){
+		public Door(Transform door, Vector3 leftMaxValue, Vector3 rightMaxValue, float speed, ref bool openDoor){
 			DoorObj = door;
-			MaxValue = maxValue;
+			LeftMaxValue = leftMaxValue;
+			RightMaxValue = rightMaxValue;
 			InitialPosition = door.position;
 			Speed = speed;
-			Debug.Log(speed);
+			OpenDoor = openDoor;
 		}
 		
 		private Transform DoorObj {get; set;}
-		private Vector3 MaxValue {get; set;}
+		private Vector3 LeftMaxValue {get; set;}
+		private Vector3 RightMaxValue {get; set;}
 		private Vector3 InitialPosition {get; set;}
-		public float Speed {get; set;}
+		private float Speed {get; set;}
+		public bool OpenDoor {get; set;}
 		
-		public void Update()
+		public void MoveLeft()
 		{
-			if(DoorObj.position.x <= InitialPosition.x + MaxValue.x)
+			bool condition;
+			
+			if (OpenDoor) 
+			{
+				condition = DoorObj.position.x < InitialPosition.x + LeftMaxValue.x;
+			}
+			else
+			{
+				condition = DoorObj.position.x < InitialPosition.x;
+			}
+			if(condition)
 			{
 				DoorObj.Translate(new Vector3(Speed * Time.deltaTime, 0, 0), Space.Self);
-				Debug.Log(Speed);
-				
+			}
+		}
+		
+		public void MoveRight(){
+			bool condition;
+			if (OpenDoor) 
+			{
+				condition = DoorObj.position.x > InitialPosition.x + RightMaxValue.x;
+			}
+			else
+			{
+				condition = DoorObj.position.x > InitialPosition.x;
 			}
 			
+			if(condition)
+			{
+				DoorObj.Translate(new Vector3((Speed * -1) * Time.deltaTime, 0, 0), Space.Self);
+			}
 		}
 	}
 	
 	public Vector3 doorLeftMax = new Vector3(5, 0, 0);
-	public Vector3 doorRightMax = new Vector3(-2,0,0);
+	public Vector3 doorRightMax = new Vector3(2,0,0);
 	
 	private bool openDoor = false;
-	private bool closeDoor = true;
-	public float speed = 1f;
+	public float speedDoorLeft = 2f;
+	public float speedDoorRight = 1f;
 	private Door doorLeft;
 	private Door doorRight;
 	
 	// Use this for initialization
 	void Start () {
-		doorLeft = new Door(transform, doorLeftMax, speed);
-		doorRight = new Door(transform.FindChild("DoorRight"), doorRightMax, speed * -1);
+		doorLeft = new Door(transform.FindChild("DoorLeft"), doorLeftMax, transform.FindChild("DoorLeft").position, speedDoorLeft, ref openDoor);
+		doorRight = new Door(transform.FindChild("DoorRight"), transform.FindChild("DoorRight").position, doorRightMax, speedDoorRight, ref openDoor);
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		doorLeft.OpenDoor = openDoor;
+		doorRight.OpenDoor = openDoor;
 		if (openDoor) {
-			Debug.Log("Este no");
-			doorLeft.Update();	
-			Debug.Log("Ahora");
-			doorRight.Update();
+			doorLeft.MoveLeft();	
+			doorRight.MoveRight();
+		}
+		else {
+			doorLeft.MoveRight();	
+			doorRight.MoveLeft();
 		}
 	}
 	
-	void OnCollisionEnter(Collision collision)
+	void OnTriggerEnter(Collider collider)
 	{
 		OpenDoor();
 	}
 		
-	void OnCollisionExit(Collision collision)
+	void OnTriggerExit(Collider collider)
 	{
 		CloseDoor();	
 	}
@@ -67,12 +98,10 @@ public class DoorBehaviour : MonoBehaviour {
 	public void OpenDoor()
 	{
 		openDoor = true;
-		closeDoor = false;
 	}
 		
 	public void CloseDoor()
 	{
 		openDoor = false;
-		closeDoor = true;
 	}
 }
