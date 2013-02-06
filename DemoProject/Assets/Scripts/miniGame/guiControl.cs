@@ -14,11 +14,11 @@ public class guiControl : MonoBehaviour {
 	
 	}
 	
-	public void ShowGUI(Vector3 renderPoint)
+	public void ShowGUI(Vector3 renderPoint, GameObject referredGameObject)
 	{
 		renderer.enabled = true;
 		transform.position = renderPoint;
-		print ("Showing GUI");
+		print ("Showing GUI: " + referredGameObject.name);
 	}
 	
 	public void HideGUI()

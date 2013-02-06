@@ -46,7 +46,7 @@ public class control : MonoBehaviour {
 		}
 		
 		Ray ray = new Ray(this.transform.position, this.transform.forward);
-		bool collisionResult = Physics.Raycast(ray, out hit, 10) && hit.collider.gameObject.layer == 8;
+		bool collisionResult = Physics.Raycast(ray, out hit, 100) && hit.collider.gameObject.layer == 8;
 		ProcessCollision(collisionResult);
 	}
 	
@@ -59,8 +59,9 @@ public class control : MonoBehaviour {
 	
 	void ProcessCollision(bool isColliding)
 	{
+		GameObject.Find ("dot").transform.position = hit.point;
 		if(isColliding){
-			gui.ShowGUI(hit.point);
+			gui.ShowGUI(hit.point, hit.collider.gameObject);
 		}
 		else
 		{
