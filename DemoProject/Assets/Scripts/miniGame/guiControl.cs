@@ -3,7 +3,6 @@ using System.Collections;
 
 public class guiControl : MonoBehaviour {
 	
-	
 	// Use this for initialization
 	void Start () {
 		renderer.enabled = false;
@@ -14,16 +13,21 @@ public class guiControl : MonoBehaviour {
 	
 	}
 	
-	public void ShowGUI(Vector3 renderPoint, GameObject referredGameObject)
+	public void ShowGUI()
 	{
-		renderer.enabled = true;
-		transform.position = renderPoint;
-		print ("Showing GUI: " + referredGameObject.name);
+		if(!name.Equals("door")) renderer.enabled = true;
 	}
 	
 	public void HideGUI()
 	{
-		renderer.enabled = false;
-		print("Hiding GUI");
+		if(!name.Equals("door")) renderer.enabled = false;
+	}
+	
+	public void OnAction()
+	{
+		if(name.Equals("door"))
+		{
+			GetComponent<door>().ToogleDoor();
+		}
 	}
 }

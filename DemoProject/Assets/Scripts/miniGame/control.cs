@@ -18,8 +18,13 @@ public class control : MonoBehaviour {
 	float rotationX = 0F;
 	
 	RaycastHit hit;
+	GameObject lastCollided;
 	
-	guiControl gui;
+	void Start ()
+	{
+		// Make the rigid body not change rotation
+		if (rigidbody) rigidbody.freezeRotation = true;
+	}
 	
 	void Update ()
 	{
@@ -48,24 +53,23 @@ public class control : MonoBehaviour {
 		Ray ray = new Ray(this.transform.position, this.transform.forward);
 		bool collisionResult = Physics.Raycast(ray, out hit, 100) && hit.collider.gameObject.layer == 8;
 		ProcessCollision(collisionResult);
-	}
-	
-	void Start ()
-	{
-		// Make the rigid body not change rotation
-		if (rigidbody) rigidbody.freezeRotation = true;
-		gui = GameObject.Find("gui").GetComponent<guiControl>();
+		
+		if(Input.GetButtonUp(KeyCode.JoystickButton0.ToString())) print ("Button A!!");
 	}
 	
 	void ProcessCollision(bool isColliding)
 	{
 		GameObject.Find ("dot").transform.position = hit.point;
 		if(isColliding){
-			gui.ShowGUI(hit.point, hit.collider.gameObject);
+			lastCollided = hit.collider.gameObject;
+			var gControl = lastCollided.GetComponentInChildren<guiControl>();
+			gControl.ShowGUI();
+			if(Input.GetButtonUp("A")) gControl.OnAction();
 		}
-		else
+		else if(lastCollided != null)
 		{
-			gui.HideGUI();
+			lastCollided.GetComponentInChildren<guiControl>().HideGUI();
+			lastCollided = null;
 		}
 	}
 }
