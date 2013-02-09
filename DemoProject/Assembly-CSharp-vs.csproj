@@ -49,6 +49,7 @@
      <Compile Include="Assets\Scripts\SpriteAnimation.cs" />
      <Compile Include="Assets\Scripts\button.cs" />
      <Compile Include="Assets\Scripts\fader.cs" />
+     <Compile Include="Assets\Scripts\miniGame\boardElement.cs" />
      <Compile Include="Assets\Scripts\miniGame\control.cs" />
      <Compile Include="Assets\Scripts\miniGame\door.cs" />
      <Compile Include="Assets\Scripts\miniGame\guiControl.cs" />
