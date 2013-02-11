@@ -53,14 +53,19 @@ public class control : MonoBehaviour {
 		Ray ray = new Ray(this.transform.position, this.transform.forward);
 		bool collisionResult = Physics.Raycast(ray, out hit, 100) && hit.collider.gameObject.layer == 8;
 		ProcessCollision(collisionResult);
-		
-		if(Input.GetButtonUp(KeyCode.JoystickButton0.ToString())) print ("Button A!!");
 	}
 	
 	void ProcessCollision(bool isColliding)
 	{
-		GameObject.Find ("dot").transform.position = hit.point;
-		if(isColliding){
+		GameObject.Find("dot").transform.position = hit.point;
+
+		if(isColliding)
+		{
+			if(lastCollided != null && lastCollided.GetInstanceID() != hit.collider.gameObject.GetInstanceID())
+			{
+				lastCollided.GetComponentInChildren<guiControl>().HideGUI();
+			}
+			
 			lastCollided = hit.collider.gameObject;
 			var gControl = lastCollided.GetComponentInChildren<guiControl>();
 			gControl.ShowGUI();

@@ -15,12 +15,18 @@ public class guiControl : MonoBehaviour {
 	
 	public void ShowGUI()
 	{
-		if(!name.Equals("door")) renderer.enabled = true;
+		if(!name.Equals("door"))
+		{
+			renderer.enabled = true; 
+		}
 	}
 	
 	public void HideGUI()
 	{
-		if(!name.Equals("door")) renderer.enabled = false;
+		if(!name.Equals("door"))
+		{
+			renderer.enabled = false; 
+		}
 	}
 	
 	public void OnAction()
