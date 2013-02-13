@@ -4,17 +4,19 @@ using System.Collections;
 public class sceneController : MonoBehaviour {
 	
 	public int sparksPosibility;
+	public int catchedObjects;
 	
 	private bool doorOpen;
 	
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+		catchedObjects = 0;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update ()
+	{
 		//Sparks
 		if(doorOpen)
 		{

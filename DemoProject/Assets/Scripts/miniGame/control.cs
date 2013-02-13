@@ -20,9 +20,12 @@ public class control : MonoBehaviour {
 	RaycastHit hit;
 	GameObject lastCollided;
 	
+	private sceneController controller;
+	
+	// Use this for initialization
 	void Start ()
 	{
-		// Make the rigid body not change rotation
+		controller = GameObject.Find("ScriptsController").GetComponent<sceneController>();
 		if (rigidbody) rigidbody.freezeRotation = true;
 	}
 	
@@ -69,7 +72,9 @@ public class control : MonoBehaviour {
 			lastCollided = hit.collider.gameObject;
 			var gControl = lastCollided.GetComponentInChildren<guiControl>();
 			gControl.ShowGUI();
-			if(Input.GetButtonUp("A")) gControl.OnAction();
+			if(Input.GetButtonUp("A")) gControl.OnActionA();
+			if(Input.GetButtonUp("B")) gControl.OnActionB();
+			print (lastCollided.name);
 		}
 		else if(lastCollided != null)
 		{

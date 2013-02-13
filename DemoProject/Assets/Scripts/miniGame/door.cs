@@ -44,11 +44,6 @@ public class door : MonoBehaviour {
 		}
 	}
 	
-	void OnMouseDown()
-	{
-		ToogleDoor();
-	}
-	
 	public void ToogleDoor()
 	{
 		if(ActualState == state.Open)

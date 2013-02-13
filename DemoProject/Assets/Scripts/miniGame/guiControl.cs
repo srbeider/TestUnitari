@@ -3,9 +3,16 @@ using System.Collections;
 
 public class guiControl : MonoBehaviour {
 	
+	private sceneController controller;
+	
 	// Use this for initialization
-	void Start () {
-		renderer.enabled = false;
+	void Start ()
+	{
+		controller = GameObject.Find("ScriptsController").GetComponent<sceneController>();
+		if(!name.Equals("door"))
+		{
+			renderer.enabled = false;
+		}
 	}
 	
 	// Update is called once per frame
@@ -29,11 +36,27 @@ public class guiControl : MonoBehaviour {
 		}
 	}
 	
-	public void OnAction()
+	public void OnActionA()
 	{
 		if(name.Equals("door"))
 		{
 			GetComponent<door>().ToogleDoor();
+		}
+		else if(name.StartsWith("board"))
+		{
+			GameObject.Find(name.Replace("_wire",string.Empty)).GetComponent<boardElement>().Catch();
+		}		
+	}
+	
+	public void OnActionB()
+	{
+		if(name.Equals("door"))
+		{
+			
+		}
+		else if(name.StartsWith("board"))
+		{
+			GameObject.Find(name.Replace("_wire",string.Empty)).GetComponent<boardElement>().Drop();
 		}
 	}
 }
