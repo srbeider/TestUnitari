@@ -33,10 +33,9 @@ public class boardElement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		actualPosition = new Vector3(dot.position.x, dot.position.y, initZ);
-		
 		if(actualState == state.catched)
 		{
+			actualPosition = new Vector3(dot.position.x, dot.position.y, initZ);
 			transform.position = actualPosition;
 		}
 	}
@@ -46,7 +45,6 @@ public class boardElement : MonoBehaviour {
 		if(actualState == state.droped && controller.catchedObjects < 1)
 		{
 			actualState = state.catched;
-			collider.enabled = false;
 			controller.catchedObjects++;
 		}
 	}
@@ -56,7 +54,6 @@ public class boardElement : MonoBehaviour {
 		if(actualState == state.catched && controller.catchedObjects > 0)
 		{
 			actualState = state.droped;
-			collider.enabled = true;
 			controller.catchedObjects--;
 			transform.position = new Vector3(initX, initY, initZ);
 		}

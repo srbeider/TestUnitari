@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\DoorBehaviour.cs" />
+     <Compile Include="Assets\Scripts\LightPanel.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\SpriteAnimation.cs" />
      <Compile Include="Assets\Scripts\button.cs" />

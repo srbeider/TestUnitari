@@ -24,7 +24,10 @@ public class guiControl : MonoBehaviour {
 	{
 		if(!name.Equals("door"))
 		{
-			renderer.enabled = true; 
+			if(name.Contains("sparks") || (name.Contains("board") && controller.catchedObjects == 0))
+			{
+				renderer.enabled = true; 
+			}
 		}
 	}
 	

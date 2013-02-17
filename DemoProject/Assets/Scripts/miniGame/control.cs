@@ -17,7 +17,7 @@ public class control : MonoBehaviour {
 	float rotationY = 0F;
 	float rotationX = 0F;
 	
-	RaycastHit hit;
+	RaycastHit[] hits;
 	GameObject lastCollided;
 	
 	private sceneController controller;
@@ -54,14 +54,27 @@ public class control : MonoBehaviour {
 		}
 		
 		Ray ray = new Ray(this.transform.position, this.transform.forward);
-		bool collisionResult = Physics.Raycast(ray, out hit, 100) && hit.collider.gameObject.layer == 8;
-		ProcessCollision(collisionResult);
+		hits = Physics.RaycastAll(ray, 100);
+		if(hits != null && hits.Length > 0)
+		{
+			foreach(var hit in hits)
+			{
+				if(hit.collider.gameObject.name.Equals("Paret"))
+				{
+					GameObject.Find("dot").transform.position = hit.point;
+				}
+			}
+		}
+		
+		foreach(var hit in hits)
+		{
+			bool collisionResult = hit.collider.gameObject.layer == 8;
+			ProcessCollision(collisionResult, hit);
+		}
 	}
 	
-	void ProcessCollision(bool isColliding)
+	void ProcessCollision(bool isColliding, RaycastHit hit)
 	{
-		GameObject.Find("dot").transform.position = hit.point;
-
 		if(isColliding)
 		{
 			if(lastCollided != null && lastCollided.GetInstanceID() != hit.collider.gameObject.GetInstanceID())
@@ -74,7 +87,7 @@ public class control : MonoBehaviour {
 			gControl.ShowGUI();
 			if(Input.GetButtonUp("A")) gControl.OnActionA();
 			if(Input.GetButtonUp("B")) gControl.OnActionB();
-			print (lastCollided.name);
+			//print (lastCollided.name);
 		}
 		else if(lastCollided != null)
 		{
