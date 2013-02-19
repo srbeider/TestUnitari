@@ -6,6 +6,9 @@ public class sceneController : MonoBehaviour {
 	public int sparksPosibility;
 	public int catchedObjects;
 	
+	public string cachedId;
+	public string collisionId;
+	
 	private bool doorOpen;
 	
 	// Use this for initialization

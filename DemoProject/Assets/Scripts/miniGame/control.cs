@@ -83,6 +83,7 @@ public class control : MonoBehaviour {
 			}
 			
 			lastCollided = hit.collider.gameObject;
+			controller.collisionId = lastCollided.name;
 			var gControl = lastCollided.GetComponentInChildren<guiControl>();
 			gControl.ShowGUI();
 			if(Input.GetButtonUp("A")) gControl.OnActionA();

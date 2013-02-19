@@ -7,6 +7,8 @@ public class boardElement : MonoBehaviour {
 	public float finalY;
 	public float finalZ;
 	
+	public float cachedZ;
+	
 	public float initX;
 	public float initY;
 	public float initZ;
@@ -14,7 +16,8 @@ public class boardElement : MonoBehaviour {
 	enum state
 	{
 		catched,
-		droped
+		droped,
+		positioned
 	}
 	
 	state actualState;
@@ -28,14 +31,23 @@ public class boardElement : MonoBehaviour {
 		transform.position.Set(initX, initY, initZ);
 		actualState = state.droped;
 		dot = GameObject.Find("dot").transform;
-		actualPosition = new Vector3(dot.position.x, dot.position.y, initZ);
+		actualPosition = new Vector3(dot.position.x, dot.position.y, cachedZ);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(actualState == state.catched)
 		{
-			actualPosition = new Vector3(dot.position.x, dot.position.y, initZ);
+			var cachedId = controller.cachedId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+			
+			string collisionId = string.Empty;
+			
+			if(controller.collisionId != null)
+				collisionId = controller.collisionId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+			
+			print (cachedId + " == " + collisionId + " ? " + cachedId.Equals(collisionId));
+			
+			actualPosition = new Vector3(dot.position.x, dot.position.y, cachedZ);
 			transform.position = actualPosition;
 		}
 	}
@@ -44,6 +56,7 @@ public class boardElement : MonoBehaviour {
 	{
 		if(actualState == state.droped && controller.catchedObjects < 1)
 		{
+			controller.cachedId = name;
 			actualState = state.catched;
 			controller.catchedObjects++;
 		}
@@ -53,9 +66,26 @@ public class boardElement : MonoBehaviour {
 	{
 		if(actualState == state.catched && controller.catchedObjects > 0)
 		{
-			actualState = state.droped;
+			var cachedId = controller.cachedId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+			
+			string collisionId = string.Empty;
+			
+			if(controller.collisionId != null)
+				collisionId = controller.collisionId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+			
+			if(cachedId.Equals(collisionId))
+			{
+				actualState = state.positioned;
+				transform.position = new Vector3(finalX, finalY, finalZ);
+			}
+			else
+			{
+				actualState = state.droped;
+				transform.position = new Vector3(initX, initY, initZ);
+			}
+			
 			controller.catchedObjects--;
-			transform.position = new Vector3(initX, initY, initZ);
+			controller.cachedId = null;
 		}
 	}
 }
