@@ -57,24 +57,19 @@ public class boardElement : MonoBehaviour {
 	{
 		if(actualState == state.catched && controller.catchedObjects > 0)
 		{
-			var cachedId = controller.cachedId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
-			
-			string collisionId = string.Empty;
-			
-			if(controller.collisionId != null)
-				collisionId = controller.collisionId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
-			
-			if(cachedId.Equals(collisionId))
-			{
-				actualState = state.positioned;
-				transform.position = new Vector3(finalX, finalY, finalZ);
-			}
-			else
-			{
-				actualState = state.droped;
-				transform.position = new Vector3(initX, initY, initZ);
-			}
-			
+			actualState = state.droped;
+			transform.position = new Vector3(initX, initY, initZ);
+			controller.catchedObjects--;
+			controller.cachedId = null;
+		}
+	}
+	
+	public void Place()
+	{
+		if(actualState == state.catched && controller.catchedObjects > 0)
+		{
+			actualState = state.positioned;
+			transform.position = new Vector3(finalX, finalY, finalZ);
 			controller.catchedObjects--;
 			controller.cachedId = null;
 		}

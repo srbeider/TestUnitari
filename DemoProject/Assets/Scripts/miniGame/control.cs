@@ -29,6 +29,9 @@ public class control : MonoBehaviour {
 		if (rigidbody) rigidbody.freezeRotation = true;
 	}
 	
+	int collisionsProcessed = 0;
+	string names = string.Empty;
+	
 	void Update ()
 	{
 		if (axes == RotationAxes.XAndY)
@@ -55,6 +58,7 @@ public class control : MonoBehaviour {
 		
 		Ray ray = new Ray(this.transform.position, this.transform.forward);
 		hits = Physics.RaycastAll(ray, 100);
+				
 		if(hits != null && hits.Length > 0)
 		{
 			foreach(var hit in hits)
@@ -63,29 +67,27 @@ public class control : MonoBehaviour {
 				{
 					GameObject.Find("dot").transform.position = hit.point;
 				}
+				
+				if(hit.collider.gameObject.name != controller.cachedId)
+				{
+					bool collisionResult = hit.collider.gameObject.layer == 8;
+					ProcessCollision(collisionResult, hit);
+				}
 			}
 		}
 		
-		foreach(var hit in hits)
-		{
-			bool collisionResult = hit.collider.gameObject.layer == 8;
-			ProcessCollision(collisionResult, hit);
-		}
-		
-		var cachedId = controller.cachedId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
-		
-		string collisionId = string.Empty;
-		
-		if(controller.collisionId != null)
-			collisionId = controller.collisionId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
-		
-		print (cachedId + " == " + collisionId + " ? " + cachedId.Equals(collisionId));
+		print (controller.cachedId + " - " + controller.cachedId + " Collisions processed: " + collisionsProcessed + names);
+		collisionsProcessed = 0;
+		names = string.Empty;
 	}
 	
 	void ProcessCollision(bool isColliding, RaycastHit hit)
 	{
 		if(isColliding)
 		{
+			collisionsProcessed++;
+			names += " " + hit.collider.gameObject.name;
+			
 			if(lastCollided != null && lastCollided.GetInstanceID() != hit.collider.gameObject.GetInstanceID())
 			{
 				lastCollided.GetComponentInChildren<guiControl>().HideGUI();
@@ -95,9 +97,30 @@ public class control : MonoBehaviour {
 			controller.collisionId = lastCollided.name;
 			var gControl = lastCollided.GetComponentInChildren<guiControl>();
 			gControl.ShowGUI();
+			
+			string cachedId = string.Empty;
+			if(controller.cachedId != null)
+				cachedId = controller.cachedId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+			
+			string collisionId = string.Empty;
+			if(controller.collisionId != null)
+				collisionId = controller.collisionId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+			
+			//print (hits.Length + " " + cachedId + " == " + collisionId + " ? " + cachedId.Equals(collisionId));
+			
 			if(Input.GetButtonUp("A")) gControl.OnActionA();
-			if(Input.GetButtonUp("B")) gControl.OnActionB();
-			//print (lastCollided.name);
+
+			if(Input.GetButtonUp("B"))
+			{
+				if(cachedId.Equals(collisionId))
+				{
+					gControl.OnActionC();
+				}
+				else
+				{
+					gControl.OnActionB();	
+				}
+			}
 		}
 		else if(lastCollided != null)
 		{

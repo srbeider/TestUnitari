@@ -62,4 +62,16 @@ public class guiControl : MonoBehaviour {
 			GameObject.Find(name.Replace("_wire",string.Empty)).GetComponent<boardElement>().Drop();
 		}
 	}
+	
+	public void OnActionC()
+	{
+		if(name.Equals("door"))
+		{
+			
+		}
+		else if(name.StartsWith("board"))
+		{
+			GameObject.Find(name.Replace("_wire",string.Empty)).GetComponent<boardElement>().Place();
+		}
+	}
 }
