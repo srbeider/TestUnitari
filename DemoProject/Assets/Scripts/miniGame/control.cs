@@ -71,6 +71,15 @@ public class control : MonoBehaviour {
 			bool collisionResult = hit.collider.gameObject.layer == 8;
 			ProcessCollision(collisionResult, hit);
 		}
+		
+		var cachedId = controller.cachedId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+		
+		string collisionId = string.Empty;
+		
+		if(controller.collisionId != null)
+			collisionId = controller.collisionId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
+		
+		print (cachedId + " == " + collisionId + " ? " + cachedId.Equals(collisionId));
 	}
 	
 	void ProcessCollision(bool isColliding, RaycastHit hit)
@@ -94,6 +103,7 @@ public class control : MonoBehaviour {
 		{
 			lastCollided.GetComponentInChildren<guiControl>().HideGUI();
 			lastCollided = null;
+			controller.collisionId = null;
 		}
 	}
 }

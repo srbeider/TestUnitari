@@ -37,16 +37,7 @@ public class boardElement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(actualState == state.catched)
-		{
-			var cachedId = controller.cachedId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
-			
-			string collisionId = string.Empty;
-			
-			if(controller.collisionId != null)
-				collisionId = controller.collisionId.Replace("board", string.Empty).Replace("sparks", string.Empty).Replace("_wire", string.Empty);
-			
-			print (cachedId + " == " + collisionId + " ? " + cachedId.Equals(collisionId));
-			
+		{			
 			actualPosition = new Vector3(dot.position.x, dot.position.y, cachedZ);
 			transform.position = actualPosition;
 		}
