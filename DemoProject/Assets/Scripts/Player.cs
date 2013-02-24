@@ -18,10 +18,12 @@ public class Player : MonoBehaviour {
 			if (hDelta < 0 && scale.x > 0) 
 			{
 				transform.localScale = new Vector3(scale.x * -1,scale.y,scale.z);
+				transform.FindChild("Flashlight").rotation = Quaternion.Euler(0, 90, 0);
 			}
 			else if (hDelta > 0 && scale.x < 0) 
 			{
 				transform.localScale = new Vector3(scale.x * -1,scale.y,scale.z);
+				transform.FindChild("Flashlight").rotation = Quaternion.Euler(0, 256, 0);
 			}
 			transform.Translate(new Vector3(-Input.GetAxis("Horizontal") * speed * Time.deltaTime, 0, 0));
 		}

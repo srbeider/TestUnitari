@@ -85,9 +85,14 @@ public class DoorBehaviour : MonoBehaviour {
 		}
 	}
 	
-	void OnTriggerEnter(Collider collider)
+	void OnTriggerStay(Collider collider)
 	{
-		OpenDoor();
+		if (Input.GetButton("A")) {
+			OpenDoor();
+		}
+		if (Input.GetButton("B")) {
+			CloseDoor();
+		}
 	}
 		
 	void OnTriggerExit(Collider collider)
