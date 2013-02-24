@@ -40,6 +40,7 @@ public class boardElement : MonoBehaviour {
 		{			
 			actualPosition = new Vector3(dot.position.x, dot.position.y, cachedZ);
 			transform.position = actualPosition;
+			if(Input.GetButtonUp("B")) Drop ();
 		}
 	}
 	
