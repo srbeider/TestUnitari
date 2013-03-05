@@ -30,7 +30,7 @@ public class control : MonoBehaviour {
 	}
 	
 	void Update ()
-	{
+	{		
 		if (axes == RotationAxes.XAndY)
 		{
 			rotationX += Input.GetAxis("Horizontal") * sensitivityX;
@@ -51,6 +51,13 @@ public class control : MonoBehaviour {
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
 			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
+		}
+		
+		if(!controller.isSceneActive) return;
+		
+		if(Input.GetButtonUp("X"))
+		{
+			controller.ExitScene();
 		}
 		
 		Ray ray = new Ray(this.transform.position, this.transform.forward);

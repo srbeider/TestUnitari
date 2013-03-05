@@ -10,6 +10,8 @@ public class sceneController : MonoBehaviour {
 	public string cachedId;
 	public string collisionId;
 	
+	public bool isSceneActive;
+	
 	private bool doorOpen;
 	
 	// Use this for initialization
@@ -17,6 +19,7 @@ public class sceneController : MonoBehaviour {
 	{
 		catchedObjects = 0;
 		resolvedObjects = 0;
+		isSceneActive = true;
 	}
 	
 	// Update is called once per frame
@@ -36,5 +39,21 @@ public class sceneController : MonoBehaviour {
 	public void setDoorOpen(bool isDoorOpen)
 	{
 		doorOpen = isDoorOpen;
+	}
+	
+	public void ExitScene()
+	{
+		isSceneActive = false;
+		var doorScript = GameObject.Find ("door").GetComponent<door>();
+		if(doorScript.ActualState == door.state.Open)
+		{
+			doorScript.ToogleDoor();
+		}
+		
+		GameObject.Find("dot").renderer.enabled = false;
+		
+		var faderScript = GameObject.Find ("Fader").GetComponent<fader>();
+		faderScript.nextScene = "scene1";
+		faderScript.StartFadeOut();
 	}
 }
