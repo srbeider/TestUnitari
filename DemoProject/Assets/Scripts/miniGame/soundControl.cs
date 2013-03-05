@@ -21,4 +21,18 @@ public class soundControl : MonoBehaviour {
 			if(!noise.isPlaying) noise.Play();
 		}
 	}
+	
+	private static soundControl instance = null;
+    public static soundControl ScriptsInstance {
+        get { return instance; }
+    }
+    void Awake() {
+        if (instance != null && instance != this) {
+            Destroy(this.gameObject);
+            return;
+        } else {
+            instance = this;
+        }
+        DontDestroyOnLoad(this.gameObject);
+    }
 }

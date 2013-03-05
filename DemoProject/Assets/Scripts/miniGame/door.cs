@@ -49,10 +49,12 @@ public class door : MonoBehaviour {
 		if(ActualState == state.Open)
 		{
 			CloseDoor();
+			GameObject.Find ("/door/soundClose").audio.Play();
 		}
 		else if(ActualState == state.Closed)
 		{
 			OpenDoor();
+			GameObject.Find ("/door/soundOpen").audio.Play();
 		}
 	}
 	
