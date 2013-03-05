@@ -5,8 +5,8 @@ public class control : MonoBehaviour {
 	
 	public enum RotationAxes { XAndY = 0, X = 1, Y = 2 }
 	public RotationAxes axes = RotationAxes.XAndY;
-	public float sensitivityX = 15F;
-	public float sensitivityY = 15F;
+	public float sensitivityX = 25F;
+	public float sensitivityY = 25F;
 
 	public float minimumX = -360F;
 	public float maximumX = 360F;

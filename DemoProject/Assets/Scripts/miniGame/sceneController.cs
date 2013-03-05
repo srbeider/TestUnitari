@@ -5,6 +5,7 @@ public class sceneController : MonoBehaviour {
 	
 	public int sparksPosibility;
 	public int catchedObjects;
+	public int resolvedObjects;
 	
 	public string cachedId;
 	public string collisionId;
@@ -15,6 +16,7 @@ public class sceneController : MonoBehaviour {
 	void Start ()
 	{
 		catchedObjects = 0;
+		resolvedObjects = 0;
 	}
 	
 	// Update is called once per frame

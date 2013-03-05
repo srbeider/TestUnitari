@@ -73,6 +73,12 @@ public class boardElement : MonoBehaviour {
 			transform.position = new Vector3(finalX, finalY, finalZ);
 			controller.catchedObjects--;
 			controller.cachedId = null;
+			
+			controller.resolvedObjects++;
+			if(controller.resolvedObjects >= 5)
+			{
+				gameControllerScripts.ScriptsInstance.miniGameResolved = true;
+			}
 		}
 	}
 }
