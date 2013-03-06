@@ -12,7 +12,7 @@ public class gameControllerScripts : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		print ("miniGameResolved = " + miniGameResolved.ToString());
+		
 	}
 	
 	private static gameControllerScripts instance = null;

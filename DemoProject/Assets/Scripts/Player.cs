@@ -12,6 +12,10 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (Input.GetButtonDown("Y")) {
+			transform.FindChild("Flashlight").gameObject.SetActive(!transform.FindChild("Flashlight").gameObject.activeSelf);
+		}
+		
 		var hDelta = Input.GetAxis("Horizontal");
 		if (hDelta != 0) {
 			var scale = transform.localScale;
