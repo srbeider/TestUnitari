@@ -38,7 +38,7 @@ public class redLight : MonoBehaviour {
 	void Update () {
 		timer += Time.deltaTime;
 		
-		if(actualState == state.Off && timer >= offSeconds)
+		if(actualState == state.Off && timer >= offSeconds && !GameObject.Find ("GameController").GetComponent<gameControllerScripts>().miniGameResolved)
 		{
 			actualState = state.SwitchingOn;
 			timer = 0;

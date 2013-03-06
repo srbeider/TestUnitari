@@ -13,7 +13,9 @@ public class control : MonoBehaviour {
 
 	public float minimumY = -60F;
 	public float maximumY = 60F;
-
+	
+	public bool spotLightOn = true;
+	
 	float rotationY = 0F;
 	float rotationX = 0F;
 	
@@ -51,6 +53,18 @@ public class control : MonoBehaviour {
 			rotationY = Mathf.Clamp (rotationY, minimumY, maximumY);
 			
 			transform.localEulerAngles = new Vector3(-rotationY, transform.localEulerAngles.y, 0);
+		}
+		
+		if(Input.GetButtonUp("Y"))
+		{
+			if(spotLightOn)
+			{
+				SwitchOffSpotLight();
+			}
+			else
+			{
+				SwitchOnSpotLight();
+			}
 		}
 		
 		if(!controller.isSceneActive) return;
@@ -111,5 +125,21 @@ public class control : MonoBehaviour {
 			lastCollided = null;
 			controller.collisionId = null;
 		}
+	}
+	
+	public void SwitchOnSpotLight()
+	{
+		GameObject.Find ("largeSpotLight").audio.Play();
+		GameObject.Find ("largeSpotLight").GetComponent<light>().SwitchOn();
+		GameObject.Find ("smallSpotLight").GetComponent<light>().SwitchOn();
+		spotLightOn = true;
+	}
+	
+	public void SwitchOffSpotLight()
+	{
+		GameObject.Find ("largeSpotLight").audio.Play();
+		GameObject.Find ("largeSpotLight").GetComponent<light>().SwitchOff();
+		GameObject.Find ("smallSpotLight").GetComponent<light>().SwitchOff();
+		spotLightOn = false;
 	}
 }

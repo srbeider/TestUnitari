@@ -20,13 +20,18 @@ public class sceneController : MonoBehaviour {
 		catchedObjects = 0;
 		resolvedObjects = 0;
 		isSceneActive = true;
+		
+		if(GameObject.Find ("GameController").GetComponent<gameControllerScripts>().miniGameResolved)
+		{
+			GameObject.Find ("light").GetComponent<light>().SwitchOn();
+		}
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		//Sparks
-		if(doorOpen)
+		if(doorOpen && !GameObject.Find ("GameController").GetComponent<gameControllerScripts>().miniGameResolved)
 		{
 			if(Random.Range(1, sparksPosibility) == 1)
 			{

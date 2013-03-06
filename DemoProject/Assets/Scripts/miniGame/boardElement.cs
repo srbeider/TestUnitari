@@ -32,6 +32,11 @@ public class boardElement : MonoBehaviour {
 		actualState = state.droped;
 		dot = GameObject.Find("dot").transform;
 		actualPosition = new Vector3(dot.position.x, dot.position.y, cachedZ);
+		
+		if(GameObject.Find ("GameController").GetComponent<gameControllerScripts>().miniGameResolved)
+		{
+			SetPlaced();
+		}
 	}
 	
 	// Update is called once per frame
@@ -78,8 +83,18 @@ public class boardElement : MonoBehaviour {
 			controller.resolvedObjects++;
 			if(controller.resolvedObjects >= 5)
 			{
+				GameObject.Find ("minigameSuccesSound1").audio.Play();
+				GameObject.Find ("minigameSuccesSound2").audio.Play();
+				GameObject.Find ("light").GetComponent<light>().SwitchOn();
 				GameObject.Find ("GameController").GetComponent<gameControllerScripts>().miniGameResolved = true;
 			}
 		}
+	}
+	
+	public void SetPlaced()
+	{
+		actualState = state.positioned;
+		transform.position = new Vector3(finalX, finalY, finalZ);
+		controller.resolvedObjects++;
 	}
 }

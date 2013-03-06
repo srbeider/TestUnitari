@@ -14,18 +14,21 @@ public class door : MonoBehaviour {
 	}
 	
 	private sceneController controller;
+	private bool playSound = false;
 	
 	// Use this for initialization
 	void Start () {
 		controller = GameObject.Find("ScriptsController").GetComponent<sceneController>();
 		if(ActualState == state.Open)
 		{
-			OpenDoor();
+			OpenDoor(false);
 		}
 		else
 		{
-			CloseDoor();
+			CloseDoor(false);
 		}
+		
+		playSound = true;
 	}
 	
 	// Update is called once per frame
@@ -49,24 +52,34 @@ public class door : MonoBehaviour {
 		if(ActualState == state.Open)
 		{
 			CloseDoor();
-			GameObject.Find ("/door/soundClose").audio.Play();
 		}
 		else if(ActualState == state.Closed)
 		{
 			OpenDoor();
-			GameObject.Find ("/door/soundOpen").audio.Play();
 		}
 	}
 	
 	private void OpenDoor()
 	{
+		OpenDoor(true);
+	}
+	
+	private void OpenDoor(bool playSound)
+	{
 		ActualState = state.Open;
 		controller.setDoorOpen(true);
+		if(playSound) GameObject.Find ("/door/soundOpen").audio.Play();
 	}
 	
 	private void CloseDoor()
 	{
+		CloseDoor(true);
+	}
+	
+	private void CloseDoor(bool playSound)
+	{
 		ActualState = state.Closed;
 		controller.setDoorOpen(false);
+		if(playSound) GameObject.Find ("/door/soundClose").audio.Play();
 	}
 }
